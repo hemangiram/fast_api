@@ -19,7 +19,7 @@ A simple FastAPI project with CRUD operations for managing products.
 1. Clone the repository:
 
 ```bash
-git clone git@github.com:hemangiram/fast_api.git
+git clone git@github.com:your_username/your_repositoryname.git
 cd fast_api
 
 python -m venv .venv
