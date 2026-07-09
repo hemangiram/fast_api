@@ -84,6 +84,23 @@ def update_product(id: int, updated_fields: ProductSchema, db: Session = Depends
 
 
 
+# update product
+@app.put("/products/update", response_model=ProductSchema)
+def upd_product(id: int, updated_fields: ProductSchema, db: Session = Depends(get_db)):
+    db_product = db.query(database_models.Product).filter(database_models.Product.id == id).first()
+    if not db_product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    db_product.name = updated_fields.name
+    db_product.description = updated_fields.description
+    db_product.price = updated_fields.price
+    db_product.quantity = updated_fields.quantity
+
+    db.commit()
+    db.refresh(db_product)
+    return db_product
+
+
 
 
 # Delete product

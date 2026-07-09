@@ -9,10 +9,15 @@ import os
 
 app = FastAPI()
 
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 
 # Correct path to static folder
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
+
+
 
 # Correct path to templates folder
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
