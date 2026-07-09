@@ -84,6 +84,8 @@ def update_product(id: int, updated_fields: ProductSchema, db: Session = Depends
 
 
 
+
+
 # Delete product
 @app.delete("/product/delete")
 def delete_product(id: int, db: Session = Depends(get_db)):
