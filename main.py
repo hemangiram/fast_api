@@ -24,6 +24,7 @@ products = [
     {"id":3, "name":"table", "description":"a wooden table", "price":99.6, "quantity":5},
 ]
 
+
 def init_db():
     db = session()
     count = db.query(database_models.Product).count()
@@ -34,6 +35,8 @@ def init_db():
 
 init_db()
 
+
+
 @app.get("/")
 def greet():
     return "welcome to fastapi"
@@ -43,6 +46,7 @@ def greet():
 def get_products(db: Session = Depends(get_db)):
     return db.query(database_models.Product).all()
 
+
 # Get product by ID
 @app.get("/product/id_by", response_model=ProductSchema)
 def get_product_by_id(id: int, db: Session = Depends(get_db)):
@@ -50,6 +54,7 @@ def get_product_by_id(id: int, db: Session = Depends(get_db)):
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
     return product
+
 
 # Add product
 @app.post("/post_product/add", response_model=ProductSchema)
@@ -59,6 +64,7 @@ def post_product(product: ProductSchema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_product)
     return db_product
+
 
 # Update product
 @app.patch("/products/update", response_model=ProductSchema)
@@ -75,6 +81,8 @@ def update_product(id: int, updated_fields: ProductSchema, db: Session = Depends
     db.commit()
     db.refresh(db_product)
     return db_product
+
+
 
 # Delete product
 @app.delete("/product/delete")
