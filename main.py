@@ -56,6 +56,8 @@ def get_product_by_id(id: int, db: Session = Depends(get_db)):
     return product
 
 
+
+
 # Add product
 @app.post("/post_product/add", response_model=ProductSchema)
 def post_product(product: ProductSchema, db: Session = Depends(get_db)):
@@ -64,6 +66,7 @@ def post_product(product: ProductSchema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_product)
     return db_product
+
 
 
 # Update product
