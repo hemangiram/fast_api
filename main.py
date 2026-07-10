@@ -1,14 +1,19 @@
-from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.orm import Session
+from fastapi import FastAPI, Depends, HTTPException # type: ignore
+from sqlalchemy.orm import Session # type: ignore
 from database import session, engine
 import database_models
 from schemas import ProductSchema
 from typing import List
 
+
 app = FastAPI()
+
+
 
 # Create DB tables
 database_models.Base.metadata.create_all(bind=engine)
+
+
 
 def get_db():
     db = session()
@@ -17,12 +22,17 @@ def get_db():
     finally:
         db.close()
 
+
+
+
 # Sample products to initialize DB
 products = [
     {"id":1, "name":"phone", "description":"a smartphone", "price":99, "quantity":4},
     {"id":2, "name":"laptop", "description":"a personal pc", "price":999, "quantity":3},
     {"id":3, "name":"table", "description":"a wooden table", "price":99.6, "quantity":5},
 ]
+
+
 
 
 def init_db():
@@ -37,14 +47,20 @@ init_db()
 
 
 
+
 @app.get("/")
 def greet():
     return "welcome to fastapi"
+
+
+
 
 # Get all products
 @app.get("/products/get", response_model=List[ProductSchema])
 def get_products(db: Session = Depends(get_db)):
     return db.query(database_models.Product).all()
+
+
 
 
 # Get product by ID
